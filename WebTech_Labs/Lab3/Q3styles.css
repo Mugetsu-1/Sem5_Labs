@@ -1,0 +1,77 @@
+/* 🎨 Warm Sunset Palette
+   Deep Purple: #6C3483
+   Sunset Orange: #E67E22
+   Soft Peach: #FAD7A0
+   Light Sand: #FDF2E9
+   Accent Coral: #D35400
+*/
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #FDF2E9;
+    margin: 0;
+    padding: 0;
+}
+
+.form-container {
+    max-width: 450px;
+    margin: 60px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(108, 52, 131, 0.2);
+    border-top: 6px solid #E67E22;
+}
+
+h2 {
+    text-align: center;
+    color: #6C3483;
+    margin-bottom: 25px;
+}
+
+label {
+    font-weight: bold;
+    color: #6C3483;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #D5D8DC;
+    border-radius: 5px;
+    background-color: #FAD7A0;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #D35400;
+    outline: none;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #E67E22;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #E67E22;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #D35400;
+}

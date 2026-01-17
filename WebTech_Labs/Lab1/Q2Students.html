@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Projects Showcase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 30px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid #2c3e50;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #dee2e6;
+        }
+        
+        th {
+            background-color: #2c3e50;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        thead {
+            border-bottom: 2px solid #2c3e50;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tbody tr:hover {
+            background-color: #e9ecef;
+            transition: background-color 0.2s;
+        }
+        
+        tfoot {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background-color: #e8f4f8 !important;
+            color: #2c3e50;
+        }
+        
+        .remarks-completed {
+            color: #27ae60;
+            font-weight: 500;
+        }
+        
+        .remarks-ongoing {
+            color: #f39c12;
+            font-weight: 500;
+        }
+        
+        .remarks-pending {
+            color: #e74c3c;
+            font-weight: 500;
+        }
+        
+        .summary {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 5px solid #2c3e50;
+        }
+        
+        .summary h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            color: #7f8c8d;
+            border-top: 1px solid #dee2e6;
+            font-size: 0.9rem;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        
+        .group-project {
+            background-color: #d5f4e6;
+        }
+        
+        .individual-project {
+            background-color: #fef9e7;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student Projects Showcase</h1>
+            <p class="subtitle">Computer Science Department - Final Year Projects 2025</p>
+        </header>
+        
+        <div class="table-container">
+            <table border="2">
+                <thead>
+                    <tr>
+                        <th>S.N</th>
+                        <th>Project Name</th>
+                        <th>Student Name</th>
+                        <th>Exam Roll Number</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <!-- Project 1 - Group Project -->
+                    <tr class="group-project">
+                        <td rowspan="3">1</td>
+                        <td rowspan="3">E-Learning Platform with AI Tutor</td>
+                        <td>Leon</td>
+                        <td>CS2024001</td>
+                        <td class="remarks-completed">Completed</td>
+                    </tr>
+                    <tr class="group-project">
+                        <td>Ada</td>
+                        <td>CS2024002</td>
+                        <td class="remarks-completed">Completed</td>
+                    </tr>
+                    <tr class="group-project">
+                        <td>David</td>
+                        <td>CS2024003</td>
+                        <td class="remarks-completed">Completed</td>
+                    </tr>
+                    
+                    <!-- Project 2 - Individual Project -->
+                    <tr class="individual-project">
+                        <td>2</td>
+                        <td>Smart Home Automation System</td>
+                        <td>Sarah</td>
+                        <td>CS2024004</td>
+                        <td class="remarks-ongoing">Ongoing</td>
+                    </tr>
+                    
+                    <!-- Project 3 - Group Project -->
+                    <tr class="group-project">
+                        <td rowspan="2">3</td>
+                        <td rowspan="2">Health Monitoring Wearable App</td>
+                        <td>James</td>
+                        <td>CS2024005</td>
+                        <td class="remarks-ongoing">Ongoing</td>
+                    </tr>
+                    <tr class="group-project">
+                        <td>Emily</td>
+                        <td>CS2024006</td>
+                        <td class="remarks-ongoing">Ongoing</td>
+                    </tr>
+                    
+                    <!-- Project 4 - Individual Project -->
+                    <tr class="individual-project">
+                        <td>4</td>
+                        <td>Blockchain-Based Voting System</td>
+                        <td>Robert</td>
+                        <td>CS2024007</td>
+                        <td class="remarks-pending">Pending Review</td>
+                    </tr>
+                </tbody>
+                
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Total Projects: 4</td>
+                        <td colspan="2">Total Students: 7</td>
+                        <td>Status Summary</td>
+                    </tr>
+                    <tr class="highlight">
+                        <td colspan="5">
+                            <strong>Note:</strong> Group projects involve multiple students working together. 
+                            Individual projects are completed by single students. All projects are evaluated 
+                            based on innovation, implementation, and documentation.
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #d5f4e6;"></div>
+                <span>Group Project</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #fef9e7;"></div>
+                <span>Individual Project</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #e8f4f8;"></div>
+                <span>Important Note</span>
+            </div>
+        </div>
+        
+        <div class="summary">
+            <h3>Project Summary</h3>
+            <p>This table showcases 4 different projects involving 7 students. The projects range from AI-based learning platforms to blockchain voting systems, demonstrating the diverse interests and skills of our computer science students. Group projects allow for collaboration on complex systems, while individual projects enable students to focus on specialized areas of interest.</p>
+            <p><strong>Current Status:</strong> 2 projects completed, 2 projects ongoing/pending review.</p>
+        </div>
+        
+        <footer>
+            <p>Computer Science Department - Student Projects Showcase</p>
+            <p>Academic Year 2023-2025 | Last Updated: March 2025</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to HTML - HTML Basics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        section {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        section:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .example-container {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .example-title::before {
+            content: "✓";
+            background-color: #3498db;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .code {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .tag {
+            color: #e74c3c;
+        }
+        
+        .attribute {
+            color: #3498db;
+        }
+        
+        .text-content {
+            margin: 15px 0;
+            line-height: 1.7;
+        }
+        
+        .preformatted-example {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            white-space: pre;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            border-top: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .tag-info {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        
+        .tag-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HTML Basics</h1>
+        <p class="subtitle">A Simple Introduction to HTML Tags and Their Uses</p>
+    </header>
+    
+    <div class="container">
+        <section id="p-tag-section">
+            <h2>Use of &lt;p&gt; Tag</h2>
+            
+            <div class="tag-info">
+                <p><span class="tag-name">&lt;p&gt; Tag:</span> The paragraph tag is used to define a paragraph of text in HTML. It's a block-level element that automatically adds space before and after the paragraph.</p>
+            </div>
+            
+            <div class="example-container">
+                <div class="example-title">HTML Code Example:</div>
+                <div class="code">
+                    <span class="tag">&lt;p&gt;</span>This is a paragraph of text. The paragraph tag automatically adds spacing before and after the text content, making it appear as a distinct block of text.<span class="tag">&lt;/p&gt;</span><br><br>
+                    
+                    <span class="tag">&lt;p&gt;</span>This is another paragraph. Each paragraph tag creates a separate text block, making content easier to read and structure.<span class="tag">&lt;/p&gt;</span>
+                </div>
+                
+                <div class="example-title">How it Renders in Browser:</div>
+                <div class="text-content">
+                    <p>This is a paragraph of text. The paragraph tag automatically adds spacing before and after the text content, making it appear as a distinct block of text.</p>
+                    
+                    <p>This is another paragraph. Each paragraph tag creates a separate text block, making content easier to read and structure.</p>
+                </div>
+            </div>
+            
+            <div class="text-content">
+                <p><strong>Key Characteristics:</strong></p>
+                <ul>
+                    <li>Block-level element (starts on a new line)</li>
+                    <li>Adds vertical margins automatically</li>
+                    <li>Ideal for regular text content</li>
+                    <li>Cannot preserve whitespace and line breaks exactly as written</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="pre-tag-section">
+            <h2>Use of &lt;pre&gt; Tag</h2>
+            
+            <div class="tag-info">
+                <p><span class="tag-name">&lt;pre&gt; Tag:</span> The preformatted tag preserves both spaces and line breaks exactly as they appear in the HTML code. It's commonly used for displaying code, poetry, or ASCII art.</p>
+            </div>
+            
+            <div class="example-container">
+                <div class="example-title">HTML Code Example:</div>
+                <div class="code">
+                    <span class="tag">&lt;pre&gt;</span><br>  This text is inside a &lt;pre&gt; tag.<br>  It preserves all    spaces     exactly.<br><br>  Line breaks are also preserved,<br>  making it perfect for:<br>    * Code snippets<br>    * Poetry<br>    * ASCII art<br>    * Text formatting<br><span class="tag">&lt;/pre&gt;</span>
+                </div>
+                
+                <div class="example-title">How it Renders in Browser:</div>
+                <div class="preformatted-example">
+  This text is inside a &lt;pre&gt; tag.
+  It preserves all    spaces     exactly.
+
+  Line breaks are also preserved,
+  making it perfect for:
+    * Code snippets
+    * Poetry
+    * ASCII art
+    * Text formatting
+                </div>
+            </div>
+            
+            <div class="text-content">
+                <p><strong>Key Characteristics:</strong></p>
+                <ul>
+                    <li>Preserves whitespace and line breaks exactly</li>
+                    <li>Uses a monospace font by default</li>
+                    <li>Block-level element</li>
+                    <li>Ideal for code samples, poetry, formatted text</li>
+                </ul>
+                
+                <p><strong>Comparison:</strong> While the &lt;p&gt; tag collapses multiple spaces and line breaks, the &lt;pre&gt; tag preserves the exact formatting.</p>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>Introduction to HTML - HTML Basics | Created to demonstrate the use of &lt;p&gt; and &lt;pre&gt; tags</p>
+        <p>All HTML tags are displayed for educational purposes.</p>
+    </footer>
+</body>
+</html>

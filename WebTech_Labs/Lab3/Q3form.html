@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+    <link rel="stylesheet" href="Q3styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>User Registration Form</h2>
+        
+        <form action="#" method="post">
+            <p>
+                <label for="name">Full Name:</label><br>
+                <input type="text" id="name" name="name" placeholder="Enter your Name" required>
+            </p>
+            
+            <p>
+                <label for="email">Email ID:</label><br>
+                <input type="email" id="email" name="email" placeholder="Enter your Email" required>
+            </p>
+            
+            <p>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" placeholder="Enter your Password" required>
+            </p>
+            
+            <p>
+                <label>Gender:</label><br>
+                <input type="radio" name="gender" value="female"> Female
+                <input type="radio" name="gender" value="male"> Male
+            </p>
+            
+            <p>
+                <label>Click on your interests:</label><br>
+                <input type="checkbox" name="interests[]" value="coding"> Coding
+                <input type="checkbox" name="interests[]" value="singing"> Singing
+                <input type="checkbox" name="interests[]" value="football"> Football
+                <input type="checkbox" name="interests[]" value="dancing"> Dancing
+                <input type="checkbox" name="interests[]" value="basketball"> Basketball
+            </p>
+            
+            <p>
+                <input type="submit" name="submit" value="Register" class="btn">
+            </p>
+        </form>
+    </div>
+</body>
+</html>

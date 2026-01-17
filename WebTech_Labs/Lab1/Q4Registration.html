@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>User Registration Form</h2>
+    
+    <form action="#" method="post">
+        <!-- Name field -->
+        <p>
+            <label>Name:</label><br>
+            <input type="text" name="name" required>
+        </p>
+        
+        <!-- Email field -->
+        <p>
+            <label>Email:</label><br>
+            <input type="email" name="email" required>
+        </p>
+        
+        <!-- Password field -->
+        <p>
+            <label>Password:</label><br>
+            <input type="password" name="password" required>
+        </p>
+        
+        <!-- Gender radio buttons -->
+        <p>
+            <label>Gender:</label><br>
+            <input type="radio" name="gender" value="male"> Male
+            <input type="radio" name="gender" value="female"> Female
+            <input type="radio" name="gender" value="other"> Other
+        </p>
+        
+        <!-- Hobbies checkboxes -->
+        <p>
+            <label>Hobbies:</label><br>
+            <input type="checkbox" name="hobbies[]" value="reading"> Reading<br>
+            <input type="checkbox" name="hobbies[]" value="sports"> Sports<br>
+            <input type="checkbox" name="hobbies[]" value="music"> Music<br>
+            <input type="checkbox" name="hobbies[]" value="travel"> Travel
+        </p>
+        
+        <!-- Submit button -->
+        <p>
+            <input type="submit" name="submit" value="Register">
+        </p>
+    </form>
+</body>
+</html>

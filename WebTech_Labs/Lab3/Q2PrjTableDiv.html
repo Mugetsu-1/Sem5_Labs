@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Projects Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e9ecef;
+    }
+
+    h1 {
+      color: #2c3e50;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #7f8c8d;
+      font-size: 1.2rem;
+    }
+
+    .grid-container {
+      display: grid;
+      gap: 10px;
+      margin: 30px 0;
+    }
+
+    .grid-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      padding: 15px;
+      border: 1px solid #dee2e6;
+      align-items: center;
+    }
+
+    .grid-header {
+      background-color: #2c3e50;
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .grid-row:nth-child(even):not(.grid-header) {
+      background-color: #f8f9fa;
+    }
+
+    .grid-row:hover:not(.grid-header) {
+      background-color: #e9ecef;
+      transition: background-color 0.2s;
+    }
+
+    .highlight {
+      background-color: #e8f4f8 !important;
+      color: #2c3e50;
+    }
+
+    .remarks-completed {
+      color: #27ae60;
+      font-weight: 500;
+    }
+
+    .remarks-ongoing {
+      color: #f39c12;
+      font-weight: 500;
+    }
+
+    .remarks-pending {
+      color: #e74c3c;
+      font-weight: 500;
+    }
+
+    .summary {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border-left: 5px solid #2c3e50;
+    }
+
+    .summary h3 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      color: #7f8c8d;
+      border-top: 1px solid #dee2e6;
+      font-size: 0.9rem;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+    }
+
+    .group-project {
+      background-color: #d5f4e6;
+    }
+
+    .individual-project {
+      background-color: #fef9e7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Student Projects Showcase</h1>
+      <p class="subtitle">A summary of student work and progress</p>
+    </header>
+
+    <div class="grid-container">
+      <div class="grid-row grid-header">
+        <div>Name</div>
+        <div>Project Title</div>
+        <div>Type</div>
+        <div>Status</div>
+        <div>Remarks</div>
+      </div>
+
+      <div class="grid-row">
+        <div>Sharma</div>
+        <div>AI Chatbot</div>
+        <div class="individual-project">Individual</div>
+        <div>Completed</div>
+        <div class="remarks-completed">Well documented</div>
+      </div>
+
+      <div class="grid-row highlight">
+        <div>Karki</div>
+        <div>Smart Health Tracker</div>
+        <div class="group-project">Group</div>
+        <div>Ongoing</div>
+        <div class="remarks-ongoing">Needs final testing</div>
+      </div>
+
+      <div class="grid-row">
+        <div>Thapa</div>
+        <div>Weather App</div>
+        <div class="individual-project">Individual</div>
+        <div>Pending</div>
+        <div class="remarks-pending">Awaiting review</div>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>Summary</h3>
+      <p>3 projects listed: 1 completed, 1 ongoing, 1 pending.</p>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color group-project"></div> Group Project
+      </div>
+      <div class="legend-item">
+        <div class="legend-color individual-project"></div> Individual Project
+      </div>
+    </div>
+
+    <footer>© 2026 Student Showcase. All rights reserved.</footer>
+  </div>
+</body>
+</html>
