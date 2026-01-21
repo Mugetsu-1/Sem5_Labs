@@ -1,115 +1,119 @@
 #include <iostream>
 using namespace std;
 
-void showArray(int arr[], int n) {
-    for(int i = 0; i < n; i++) {
-        cout << arr[i] << " ";
-    }
+struct Node {
+    int data;
+    Node *left, *right;
+};
+
+void show(int a[], int n) {
+    for(int i = 0; i < n; i++) cout << a[i] << " ";
     cout << endl;
 }
 
-void selectionSort(int arr[], int n) {
-    int loops = 0;
-    int tempArr[100];
-    for(int i = 0; i < n; i++) {
-        tempArr[i] = arr[i];
-    }
-    
+void copyArr(int s[], int d[], int n) {
+    for(int i = 0; i < n; i++) d[i] = s[i];
+}
+void selectionSort(int a[], int n) {
+    int t[100], loops = 0;
+    copyArr(a, t, n);
+
     for(int i = 0; i < n-1; i++) {
         loops++;
-        int minPos = i;
-        
+        int m = i;
         for(int j = i+1; j < n; j++) {
             loops++;
-            if(tempArr[j] < tempArr[minPos]) {
-                minPos = j;
-            }
+            if(t[j] < t[m]) m = j;
         }
-        
-        if(minPos != i) {
-            int temp = tempArr[i];
-            tempArr[i] = tempArr[minPos];
-            tempArr[minPos] = temp;
-        }
+        swap(t[i], t[m]);
     }
-    
-    cout << "Selection Sort - Loops: " << loops << endl;
-    cout << "Sorted: ";
-    showArray(tempArr, n);
-}
 
-void bubbleSort(int arr[], int n) {
-    int loops = 0;
-    int tempArr[100];
-    for(int i = 0; i < n; i++) {
-        tempArr[i] = arr[i];
-    }
-    
+    cout << "Selection Sort - Loops: " << loops << "\nSorted: ";
+    show(t, n);
+}
+void bubbleSort(int a[], int n) {
+    int t[100], loops = 0;
+    copyArr(a, t, n);
+
     for(int i = 0; i < n-1; i++) {
         loops++;
         for(int j = 0; j < n-i-1; j++) {
             loops++;
-            if(tempArr[j] > tempArr[j+1]) {
-                int temp = tempArr[j];
-                tempArr[j] = tempArr[j+1];
-                tempArr[j+1] = temp;
-            }
+            if(t[j] > t[j+1]) swap(t[j], t[j+1]);
         }
     }
-    
-    cout << "Bubble Sort - Loops: " << loops << endl;
-    cout << "Sorted: ";
-    showArray(tempArr, n);
-}
 
-void insertionSort(int arr[], int n) {
-    int loops = 0;
-    int tempArr[100];
-    for(int i = 0; i < n; i++) {
-        tempArr[i] = arr[i];
-    }
-    
+    cout << "Bubble Sort - Loops: " << loops << "\nSorted: ";
+    show(t, n);
+}
+void insertionSort(int a[], int n) {
+    int t[100], loops = 0;
+    copyArr(a, t, n);
+
     for(int i = 1; i < n; i++) {
         loops++;
-        int key = tempArr[i];
-        int j = i-1;
-        
-        while(j >= 0 && tempArr[j] > key) {
+        int k = t[i], j = i - 1;
+        while(j >= 0 && t[j] > k) {
             loops++;
-            tempArr[j+1] = tempArr[j];
+            t[j+1] = t[j];
             j--;
         }
-        tempArr[j+1] = key;
+        t[j+1] = k;
     }
-    
-    cout << "Insertion Sort - Loops: " << loops << endl;
-    cout << "Sorted: ";
-    showArray(tempArr, n);
+
+    cout << "Insertion Sort - Loops: " << loops << "\nSorted: ";
+    show(t, n);
+}
+void minMax(int a[], int n) {
+    int mn = a[0], mx = a[0];
+    for(int i = 1; i < n; i++) {
+        if(a[i] < mn) mn = a[i];
+        if(a[i] > mx) mx = a[i];
+    }
+    cout << "Min: " << mn << "  Max: " << mx << endl;
+}
+Node* insert(Node* r, int v) {
+    if(!r) return new Node{v, NULL, NULL};
+    if(v < r->data) r->left = insert(r->left, v);
+    else r->right = insert(r->right, v);
+    return r;
 }
 
+void inorder(Node* r, int t[], int &i) {
+    if(!r) return;
+    inorder(r->left, t, i);
+    t[i++] = r->data;
+    inorder(r->right, t, i);
+}
+
+void bstSort(int a[], int n) {
+    Node* r = NULL;
+    for(int i = 0; i < n; i++) r = insert(r, a[i]);
+
+    int t[100], i = 0;
+    inorder(r, t, i);
+
+    cout << "BST Sort\nSorted: ";
+    show(t, n);
+}
 int main() {
-    int arr[100];
-    int n;
-    
-    cout << "Enter number of elements (max 100): ";
+    int a[100], n;
+
+    cout << "Enter number of elements: ";
     cin >> n;
-    
-    cout << "Enter " << n << " elements: ";
-    for(int i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
-    
-    cout << "\nOriginal Array: ";
-    showArray(arr, n);
+
+    cout << "Enter elements: ";
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    cout << "\nOriginal: ";
+    show(a, n);
     cout << endl;
-    
-    selectionSort(arr, n);
-    cout << endl;
-    
-    bubbleSort(arr, n);
-    cout << endl;
-    
-    insertionSort(arr, n);
-    
+
+    selectionSort(a, n); cout << endl;
+    bubbleSort(a, n);    cout << endl;
+    insertionSort(a, n); cout << endl;
+    minMax(a, n);        cout << endl;
+    bstSort(a, n);
+
     return 0;
 }

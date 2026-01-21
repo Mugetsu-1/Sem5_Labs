@@ -1,168 +1,120 @@
 #include <iostream>
-#include <cstdlib>   
-#include <ctime>    
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
-void showArray(int arr[], int n) {
-    for(int i = 0; i < n; i++) {
-        cout << arr[i] << " ";
-    }
+void print(int a[], int n) {
+    for(int i = 0; i < n; i++) cout << a[i] << " ";
     cout << endl;
 }
 
+void copyArr(int src[], int dest[], int n) {
+    for(int i = 0; i < n; i++) dest[i] = src[i];
+}
 
-int quickLoops = 0;
+int quickLoops;
 
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
-    for(int j = low; j < high; j++) {
+int partition(int a[], int l, int h) {
+    int pivot = a[h], i = l - 1;
+    for(int j = l; j < h; j++) {
         quickLoops++;
-        if(arr[j] < pivot) {
-            i++;
-            swap(arr[i], arr[j]);
-        }
+        if(a[j] < pivot)
+            swap(a[++i], a[j]);
     }
-    swap(arr[i+1], arr[high]);
+    swap(a[i+1], a[h]);
     return i+1;
 }
 
-void quickSortHelper(int arr[], int low, int high) {
-    if(low < high) {
+int randomPartition(int a[], int l, int h) {
+    int r = l + rand() % (h - l + 1);
+    swap(a[r], a[h]);
+    return partition(a, l, h);
+}
+
+void quickSortHelper(int a[], int l, int h, bool random) {
+    if(l < h) {
         quickLoops++;
-        int pi = partition(arr, low, high);
-        quickSortHelper(arr, low, pi-1);
-        quickSortHelper(arr, pi+1, high);
+        int p = random ? randomPartition(a, l, h)
+                       : partition(a, l, h);
+        quickSortHelper(a, l, p-1, random);
+        quickSortHelper(a, p+1, h, random);
     }
 }
 
-void quickSort(int arr[], int n) {
-    int tempArr[100];
-    for(int i = 0; i < n; i++) tempArr[i] = arr[i];
+void runQuickSort(int a[], int n) {
+    int t[100];
+
+    
+    copyArr(a, t, n);
     quickLoops = 0;
+    quickSortHelper(t, 0, n-1, false);
+    cout << "Quick Sort\nLoops: " << quickLoops << "\nSorted: ";
+    print(t, n);
+    cout << endl;
 
-    quickSortHelper(tempArr, 0, n-1);
-
-    cout << "Quick Sort - Loops: " << quickLoops << endl;
-    cout << "Sorted: ";
-    showArray(tempArr, n);
+    // Randomized
+    copyArr(a, t, n);
+    quickLoops = 0;
+    srand(time(0));
+    quickSortHelper(t, 0, n-1, true);
+    cout << "Randomized Quick Sort\nLoops: " << quickLoops << "\nSorted: ";
+    print(t, n);
+    cout << endl;
 }
 
+int mergeLoops;
 
-int randQuickLoops = 0;
-
-int randomizedPartition(int arr[], int low, int high) {
-    int randomPivot = low + rand() % (high - low + 1);
-    swap(arr[randomPivot], arr[high]);
-    int pivot = arr[high];
-    int i = low - 1;
-    for(int j = low; j < high; j++) {
-        randQuickLoops++;
-        if(arr[j] < pivot) {
-            i++;
-            swap(arr[i], arr[j]);
-        }
-    }
-    swap(arr[i+1], arr[high]);
-    return i+1;
-}
-
-void randomizedQuickSortHelper(int arr[], int low, int high) {
-    if(low < high) {
-        randQuickLoops++;
-        int pi = randomizedPartition(arr, low, high);
-        randomizedQuickSortHelper(arr, low, pi-1);
-        randomizedQuickSortHelper(arr, pi+1, high);
-    }
-}
-
-void randomizedQuickSort(int arr[], int n) {
-    int tempArr[100];
-    for(int i = 0; i < n; i++) tempArr[i] = arr[i];
-    randQuickLoops = 0;
-
-    srand((unsigned int)time(0)); // seed random
-    randomizedQuickSortHelper(tempArr, 0, n-1);
-
-    cout << "Randomized Quick Sort - Loops: " << randQuickLoops << endl;
-    cout << "Sorted: ";
-    showArray(tempArr, n);
-}
-
-
-int mergeLoops = 0;
-
-void merge(int arr[], int l, int m, int r) {
-    int n1 = m - l + 1;
-    int n2 = r - m;
+void merge(int a[], int l, int m, int r) {
     int L[100], R[100];
+    int n1 = m - l + 1, n2 = r - m;
 
-    for(int i = 0; i < n1; i++) L[i] = arr[l+i];
-    for(int j = 0; j < n2; j++) R[j] = arr[m+1+j];
+    for(int i = 0; i < n1; i++) L[i] = a[l+i];
+    for(int j = 0; j < n2; j++) R[j] = a[m+1+j];
 
     int i = 0, j = 0, k = l;
     while(i < n1 && j < n2) {
         mergeLoops++;
-        if(L[i] <= R[j]) {
-            arr[k++] = L[i++];
-        } else {
-            arr[k++] = R[j++];
-        }
+        a[k++] = (L[i] <= R[j]) ? L[i++] : R[j++];
     }
-    while(i < n1) {
-        arr[k++] = L[i++];
-    }
-    while(j < n2) {
-        arr[k++] = R[j++];
-    }
+    while(i < n1) a[k++] = L[i++];
+    while(j < n2) a[k++] = R[j++];
 }
 
-void mergeSortHelper(int arr[], int l, int r) {
+void mergeSortHelper(int a[], int l, int r) {
     if(l < r) {
         mergeLoops++;
-        int m = l + (r-l)/2;
-        mergeSortHelper(arr, l, m);
-        mergeSortHelper(arr, m+1, r);
-        merge(arr, l, m, r);
+        int m = (l + r) / 2;
+        mergeSortHelper(a, l, m);
+        mergeSortHelper(a, m+1, r);
+        merge(a, l, m, r);
     }
 }
 
-void mergeSort(int arr[], int n) {
-    int tempArr[100];
-    for(int i = 0; i < n; i++) tempArr[i] = arr[i];
+void runMergeSort(int a[], int n) {
+    int t[100];
+    copyArr(a, t, n);
     mergeLoops = 0;
 
-    mergeSortHelper(tempArr, 0, n-1);
+    mergeSortHelper(t, 0, n-1);
 
-    cout << "Merge Sort - Loops: " << mergeLoops << endl;
-    cout << "Sorted: ";
-    showArray(tempArr, n);
+    cout << "Merge Sort\nLoops: " << mergeLoops << "\nSorted: ";
+    print(t, n);
 }
-
-
 int main() {
-    int arr[100];
-    int n;
+    int a[100], n;
 
-    cout << "Enter number of elements (max 100): ";
+    cout << "Enter number of elements: ";
     cin >> n;
 
-    cout << "Enter " << n << " elements: ";
-    for(int i = 0; i < n; i++) {
-        cin >> arr[i];
-    }
+    cout << "Enter elements: ";
+    for(int i = 0; i < n; i++) cin >> a[i];
 
     cout << "\nOriginal Array: ";
-    showArray(arr, n);
+    print(a, n);
     cout << endl;
 
-    quickSort(arr, n);
-    cout << endl;
-
-    randomizedQuickSort(arr, n);
-    cout << endl;
-
-    mergeSort(arr, n);
+    runQuickSort(a, n);
+    runMergeSort(a, n);
 
     return 0;
 }
