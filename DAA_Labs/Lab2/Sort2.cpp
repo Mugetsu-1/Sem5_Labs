@@ -55,7 +55,7 @@ void runQuickSort(int a[], int n) {
     // Randomized
     copyArr(a, t, n);
     quickLoops = 0;
-    srand(time(0));
+    srand(static_cast<unsigned int>(time(0)));
     quickSortHelper(t, 0, n-1, true);
     cout << "Randomized Quick Sort\nLoops: " << quickLoops << "\nSorted: ";
     print(t, n);
