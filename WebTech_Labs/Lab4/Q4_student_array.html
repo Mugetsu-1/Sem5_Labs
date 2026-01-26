@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 4 - Student Array</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            margin-top: 20px;
+        }
+        .student-card {
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .student-card h3 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+        .student-card p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Multiple Students Database</h1>
+        <button onclick="startAddingStudents()">Add Students</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        let studentsArray = [];
+
+        function startAddingStudents() {
+            studentsArray = []; // Reset array
+            document.getElementById('output').innerHTML = ''; // Clear output
+            addStudent();
+        }
+
+        function addStudent() {
+            // Get student details using prompt
+            let name = prompt("Enter Student Name:");
+            let roll = prompt("Enter Roll Number:");
+            let dept = prompt("Enter Department:");
+            let project = prompt("Enter Project Title:");
+
+            // Student object
+            let student = {
+                name: name,
+                rollNumber: roll,
+                department: dept,
+                projectTitle: project
+            };
+
+            // Add to array
+            studentsArray.push(student);
+
+            // Ask if user wants to add more students
+            let addMore = confirm("Do you want to add another student?");
+
+            if (addMore) {
+                addStudent(); // Recursive call
+            } else {
+                displayAllStudents(); // Display all students
+            }
+        }
+
+        function displayAllStudents() {
+            let output = `<h2>Total Students: ${studentsArray.length}</h2>`;
+
+            for (let i = 0; i < studentsArray.length; i++) {
+                output += `
+                    <div class="student-card">
+                        <h3>Student ${i + 1}</h3>
+                        <p><strong>Name:</strong> ${studentsArray[i].name}</p>
+                        <p><strong>Roll Number:</strong> ${studentsArray[i].rollNumber}</p>
+                        <p><strong>Department:</strong> ${studentsArray[i].department}</p>
+                        <p><strong>Project Title:</strong> ${studentsArray[i].projectTitle}</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById('output').innerHTML = output;
+        }
+    </script>
+</body>
+</html>

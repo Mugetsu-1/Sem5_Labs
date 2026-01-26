@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2 - Table and Pattern</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        .buttons {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+        pre {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Multiplication Table & Star Pattern</h1>
+        <div class="buttons">
+            <button onclick="printTable()">Show Table of 12</button>
+            <button onclick="printPattern()">Show Star Pattern</button>
+        </div>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        // Function to print multiplication table of 12
+        function printTable() {
+            let result = "<h2>Table of 12</h2>";
+            
+            for (let i = 1; i <= 10; i++) {
+                result += `12 x ${i} = ${12 * i}<br>`;
+            }
+            
+            document.getElementById('output').innerHTML = result;
+        }
+
+        // Function to print star pattern
+        function printPattern() {
+            let pattern = "<h2>Star Pattern</h2><pre>";
+            
+            for (let i = 1; i <= 5; i++) {
+                for (let j = 1; j <= (2 * i - 1); j++) {
+                    pattern += "*";
+                }
+                pattern += "\n";
+            }
+            
+            pattern += "</pre>";
+            document.getElementById('output').innerHTML = pattern;
+        }
+    </script>
+</body>
+</html>

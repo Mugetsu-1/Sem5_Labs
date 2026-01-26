@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1 - Student Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 5px;
+        }
+        #output p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        #output strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Information System</h1>
+        <button onclick="getStudentInfo()">Enter Student Details</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function getStudentInfo() {
+            // Input using prompt
+            let studentName = prompt("Enter Student Name:");
+            let rollNumber = prompt("Enter Roll Number:");
+            let department = prompt("Enter Department:");
+            let projectTitle = prompt("Enter Project Title:");
+
+            // Student object
+            let student = {
+                name: studentName,
+                roll: rollNumber,
+                dept: department,
+                project: projectTitle
+            };
+
+            // String literals
+            document.getElementById('output').innerHTML = `
+                <h2>Student Details</h2>
+                <p><strong>Name:</strong> ${student.name}</p>
+                <p><strong>Roll Number:</strong> ${student.roll}</p>
+                <p><strong>Department:</strong> ${student.dept}</p>
+                <p><strong>Project Title:</strong> ${student.project}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

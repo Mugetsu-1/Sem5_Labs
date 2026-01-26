@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 3 - Fibonacci Series</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 5px;
+            min-height: 50px;
+        }
+        .series {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fibonacci Series Generator</h1>
+        <button onclick="generateFibonacci()">Generate Fibonacci Series</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function generateFibonacci() {
+            // Ask user for number of terms
+            let n = parseInt(prompt("How many Fibonacci numbers do you want to generate?"));
+            
+            // Validate input
+            if (isNaN(n) || n <= 0) {
+                document.getElementById('output').innerHTML = 
+                    "<p style='color: red;'>Please enter a valid positive number!</p>";
+                return;
+            }
+            
+            let result = `<h2>First ${n} Fibonacci Numbers</h2><div class="series">`;
+            
+            let a = 0;
+            let b = 1;
+            
+            for (let i = 0; i < n; i++) {
+                result += a + " ";
+                
+                // Fibonacci number
+                let next = a + b;
+                a = b;
+                b = next;
+            }
+            
+            result += "</div>";
+            document.getElementById('output').innerHTML = result;
+        }
+    </script>
+</body>
+</html>
