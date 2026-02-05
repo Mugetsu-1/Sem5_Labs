@@ -59,6 +59,6 @@ int main() {
             cout << result[i] << " ";
     }
 
-    cout << "\nTotal Steps: " << steps;
+    cout << "\nTotal Steps:" << steps << endl;
     return 0;
 }

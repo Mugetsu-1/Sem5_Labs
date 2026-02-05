@@ -53,7 +53,7 @@ int main() {
         }
     }
 
-    cout << "Maximum Value: " << totalValue << endl;
-    cout << "Total Steps: " << steps;
+    cout << "Maximum Value:" << totalValue << endl;
+    cout << "Total Steps:" << steps << endl;
     return 0;
 }

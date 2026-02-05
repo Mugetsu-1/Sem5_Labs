@@ -61,6 +61,6 @@ int main() {
         cout << arr[i] << " ";
     }
 
-    cout << "\nTotal Steps: " << steps << endl;
+    cout << "\nTotal Steps:" << steps << endl;
     return 0;
 }
