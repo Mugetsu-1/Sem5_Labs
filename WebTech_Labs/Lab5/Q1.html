@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fibonacci with Arrow Function</title>
+</head>
+<body>
+  <h3>Fibonacci Series</h3>
+  <script>
+    const fibonacci = (n) => {
+      let series = [0, 1];
+      for (let i = 2; i < n; i++) {
+        series[i] = series[i - 1] + series[i - 2];
+      }
+      return series;
+    };
+
+    let n = 10; 
+    document.write("Fibonacci Series: " + fibonacci(n).join(", "));
+  </script>
+</body>
+</html>

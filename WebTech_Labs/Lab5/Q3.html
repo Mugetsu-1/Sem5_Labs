@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    form { width: 300px; margin: 20px auto; }
+    input { display: block; margin: 10px 0; padding: 5px; width: 100%; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h3>Register New User</h3>
+  <form id="regForm">
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="email" id="email" placeholder="Email Address">
+    <input type="password" id="password" placeholder="Password">
+    <button type="submit">Register</button>
+    <p id="error" class="error"></p>
+  </form>
+
+  <script>
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      let name = document.getElementById("name").value;
+      let email = document.getElementById("email").value;
+      let password = document.getElementById("password").value;
+      let error = "";
+
+      if (name.length < 3 || /\d/.test(name)) {
+        error = "Name must be at least 3 characters and contain no numbers.";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        error = "Invalid email address.";
+      } else if (!/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@!$#]).{8,}/.test(password)) {
+        error = "Password must be 8+ chars, include uppercase, lowercase, number, and special character.";
+      }
+
+      document.getElementById("error").innerText = error || "Registration Successful!";
+    });
+  </script>
+</body>
+</html>
