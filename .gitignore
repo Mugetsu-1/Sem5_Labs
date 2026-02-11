@@ -1,2 +1,11 @@
 .vscode/
+
+# Ignore all build directories
 **/build/
+build/
+
+# Explicit patterns for lab folders
+DAA_Labs/*/build/
+SAM_Labs/*/build/
+Cryptography_Labs/*/build/
+WebTech_Labs/*/build/
