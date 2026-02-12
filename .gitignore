@@ -1,11 +1,13 @@
-.vscode/
+# Ignore everything by default
+*
 
-# Ignore all build directories
-**/build/
-build/
+# Re-include directories so Git can traverse into them
+!*/
 
-# Explicit patterns for lab folders
-DAA_Labs/*/build/
-SAM_Labs/*/build/
-Cryptography_Labs/*/build/
-WebTech_Labs/*/build/
+# Keep repository config files visible
+!.gitignore
+
+# Allow only C/C++ source files
+!*.cpp
+!*.c
+!*.C
