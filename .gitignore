@@ -1,13 +1,29 @@
-# Ignore everything by default
-*
+# Build and output directories
+output/
+**/build/
+**/cmake-build-*/
 
-# Re-include directories so Git can traverse into them
-!*/
+# C/C++ compiled artifacts
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+*.exp
+*.ilk
+*.pdb
 
-# Keep repository config files visible
-!.gitignore
+# CMake/Make metadata
+CMakeCache.txt
+CMakeFiles/
+compile_commands.json
+Makefile
+cmake_install.cmake
 
-# Allow only C/C++ source files
-!*.cpp
-!*.c
-!*.C
+# Editor/system noise
+.DS_Store
+Thumbs.db
