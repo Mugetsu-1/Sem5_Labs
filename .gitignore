@@ -27,3 +27,11 @@ cmake_install.cmake
 # Editor/system noise
 .DS_Store
 Thumbs.db
+
+*vscode/
+*.code-workspace
+*.sln
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
