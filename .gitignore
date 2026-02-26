@@ -24,14 +24,28 @@ compile_commands.json
 Makefile
 cmake_install.cmake
 
-# Editor/system noise
-.DS_Store
-Thumbs.db
+# Python cache/artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
 
-*vscode/
+# IDE/editor files
+.vscode/
+.idea/
 *.code-workspace
 *.sln
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
+
+# OS/temp noise
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
