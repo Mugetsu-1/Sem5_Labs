@@ -1,30 +1,14 @@
-"""Primitive Root"""
-
-def gcd(a, b):
-    while b:
-        a, b = b, a % b
-    return a
+from math import gcd
 
 def totient(n):
-    count = 0
-    for i in range(1, n + 1):
-        if gcd(i, n) == 1:
-            count += 1
-    return count
+    return sum(gcd(i, n) == 1 for i in range(1, n + 1))
 
 def is_primitive_root(g, n):
     phi = totient(n)
-    powers = set()
-    for i in range(1, phi + 1):
-        powers.add(pow(g, i, n))
-    return len(powers) == phi
+    return len({pow(g, i, n) for i in range(1, phi + 1)}) == phi
 
 def find_primitive_roots(n):
-    roots = []
-    for g in range(2, n):
-        if is_primitive_root(g, n):
-            roots.append(g)
-    return roots
+    return [g for g in range(2, n) if is_primitive_root(g, n)]
 
 if __name__ == "__main__":
     n = int(input("Enter n: "))
