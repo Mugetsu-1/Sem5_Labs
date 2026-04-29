@@ -5,6 +5,7 @@ Repository for semester 5 lab work across cryptography, algorithms, web technolo
 ## Repository Layout
 
 ### Cryptography_Labs
+
 Core cipher and number-theory exercises, grouped by lab:
 
 - Lab 1: `CaesarCipher.py`, `HillCipher.py`
@@ -18,6 +19,7 @@ Core cipher and number-theory exercises, grouped by lab:
 - Lab 9: `md5_hash.py`, `sha_hash.py`
 
 ### DAA_Labs
+
 Design and Analysis of Algorithms programs:
 
 - Lab 1: sorting implementations in `Sort.cpp`
@@ -27,6 +29,7 @@ Design and Analysis of Algorithms programs:
 - Lab 5: `Floyd_Warshall.cpp`, `zero_One_Knapsack.cpp`
 
 ### SAM_Labs
+
 Statistical analysis and testing exercises:
 
 - Lab 1: `Q1_Q2.cpp`, `Q3.cpp`, `Q4.cpp`, `Q5.cpp`, `Q6.cpp`, `sam5.cpp`
@@ -36,6 +39,7 @@ Statistical analysis and testing exercises:
 - Lab 5: `AutoCorrelationTest.cpp`, `ChiSquareTest.cpp`, `KolmogorovSmirnovTest.cpp`, `MarkovChain.cpp`, `PokerTest.cpp`
 
 ### WebTech_Labs
+
 HTML, CSS, and PHP practice pages:
 
 - Lab 1: basic static HTML pages in `Q1Simple.html` through `Q5Destination.html`
@@ -47,6 +51,7 @@ HTML, CSS, and PHP practice pages:
 - Lab 7: `Q1_CRUD.php` through `Q8_StaticMembers.php`
 
 ### output
+
 Generated outputs for the lab programs. These files are derived artifacts and can be recreated from the source labs.
 
 ## Notes
