@@ -31,6 +31,15 @@ __pycache__/
 *.pyd
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+pip-wheel-metadata/
+*.egg-info/
+.ipynb_checkpoints/
 .venv/
 venv/
 
@@ -47,5 +56,9 @@ venv/
 # OS/temp noise
 .DS_Store
 Thumbs.db
+desktop.ini
 *.tmp
+*.bak
+*.orig
+*.rej
 *.log
