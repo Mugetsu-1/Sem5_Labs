@@ -1,36 +1,48 @@
-import numpy as np
+from math import gcd
 
 class HillCipher:
     def __init__(self, key_matrix):
-        self.key_matrix = np.array(key_matrix)
-        self.n = len(key_matrix)
+        self.key_matrix = [list(map(int, row)) for row in key_matrix]
+        self.n = len(self.key_matrix)
 
-        det = int(round(np.linalg.det(self.key_matrix)))
-        if HillCipher.gcd(det % 26, 26) != 1:
+        if any(len(row) != self.n for row in self.key_matrix):
+            raise ValueError("Key matrix must be square")
+        if gcd(self.det(self.key_matrix) % 26, 26) != 1:
             raise ValueError("Key matrix is not invertible mod 26")
 
     @staticmethod
-    def gcd(a, b):
-        while b:
-            a, b = b, a % b
-        return a
+    def det(matrix):
+        if len(matrix) == 1:
+            return matrix[0][0]
+        if len(matrix) == 2:
+            return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+        return sum(
+            (-1) ** c * matrix[0][c] * HillCipher.det([row[:c] + row[c + 1:] for row in matrix[1:]])
+            for c in range(len(matrix))
+        )
 
     @staticmethod
     def mod_inverse(a, m):
-        for x in range(1, m):
-            if (a * x) % m == 1:
-                return x
-        return None
+        return next((x for x in range(1, m) if (a * x) % m == 1), None)
+
+    def minor(self, matrix, row, col):
+        return [r[:col] + r[col + 1:] for i, r in enumerate(matrix) if i != row]
 
     def matrix_mod_inv(self, matrix, modulus):
-        det = int(round(np.linalg.det(matrix)))
-        det_inv = HillCipher.mod_inverse(det % modulus, modulus)
-        matrix_inv = np.linalg.inv(matrix)
-        adjugate = np.round(det * matrix_inv).astype(int)
-        return (det_inv * adjugate) % modulus
+        det = self.det(matrix)
+        det_inv = self.mod_inverse(det % modulus, modulus)
+        if det_inv is None:
+            raise ValueError("Key matrix is not invertible mod 26")
+
+        cofactors = [
+            [((-1) ** (r + c) * self.det(self.minor(matrix, r, c))) for c in range(self.n)]
+            for r in range(self.n)
+        ]
+        adjugate = [list(row) for row in zip(*cofactors)]
+        return [[(det_inv * value) % modulus for value in row] for row in adjugate]
 
     def prepare_text(self, text):
-        return ''.join(filter(str.isalpha, text)).upper()
+        return ''.join(c for c in text.upper() if c.isalpha())
 
     def text_to_vector(self, text):
         return [ord(c) - 65 for c in text]
@@ -38,46 +50,46 @@ class HillCipher:
     def vector_to_text(self, vector):
         return ''.join(chr(int(v) % 26 + 65) for v in vector)
 
+    def multiply(self, matrix, vector, modulus):
+        return [sum(matrix[r][c] * vector[c] for c in range(self.n)) % modulus for r in range(self.n)]
+
     def encrypt(self, plaintext, show_steps=False):
         plaintext = self.prepare_text(plaintext)
 
         while len(plaintext) % self.n != 0:
             plaintext += 'X'
 
-        ciphertext = ''
-
         if show_steps:
             print("\nKey Matrix:")
             print(self.key_matrix)
 
+        ciphertext = []
         for i in range(0, len(plaintext), self.n):
             block = plaintext[i:i + self.n]
             vector = self.text_to_vector(block)
-
-            encrypted_vector = np.dot(self.key_matrix, vector) % 26
+            encrypted_vector = self.multiply(self.key_matrix, vector, 26)
 
             if show_steps:
                 print("\nPlaintext block:", block)
                 print("Plaintext vector:", vector)
-                print("Encrypted vector:", encrypted_vector.tolist())
+                print("Encrypted vector:", encrypted_vector)
 
-            ciphertext += self.vector_to_text(encrypted_vector)
+            ciphertext.append(self.vector_to_text(encrypted_vector))
 
-        return ciphertext
+        return ''.join(ciphertext)
 
     def decrypt(self, ciphertext):
         ciphertext = self.prepare_text(ciphertext)
         key_inv = self.matrix_mod_inv(self.key_matrix, 26)
 
-        plaintext = ''
-
+        plaintext = []
         for i in range(0, len(ciphertext), self.n):
             block = ciphertext[i:i + self.n]
             vector = self.text_to_vector(block)
-            decrypted_vector = np.dot(key_inv, vector) % 26
-            plaintext += self.vector_to_text(decrypted_vector)
+            decrypted_vector = self.multiply(key_inv, vector, 26)
+            plaintext.append(self.vector_to_text(decrypted_vector))
 
-        return plaintext
+        return ''.join(plaintext)
 
 
 if __name__ == "__main__":

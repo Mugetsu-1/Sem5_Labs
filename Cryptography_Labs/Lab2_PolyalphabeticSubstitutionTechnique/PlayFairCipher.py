@@ -1,28 +1,17 @@
-import numpy as np
-
 def generateMatrix(key):
     key = key.upper().replace("J", "I")
     keyMatrix = []
-    alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
     used = set()
 
-    for char in key:
+    for char in key + "ABCDEFGHIKLMNOPQRSTUVWXYZ":
         if char.isalpha() and char not in used:
             keyMatrix.append(char)
             used.add(char)
 
-    for char in alphabet:
-        if char not in used:
-            keyMatrix.append(char)
-
-    return np.array(keyMatrix).reshape(5, 5)
+    return [keyMatrix[i:i + 5] for i in range(0, 25, 5)]
 
 def findIndex(matrix, letter):
-    for r, row in enumerate(matrix):
-        for c, element in enumerate(row):
-            if element == letter:
-                return r, c
-    return None
+    return next((r, c) for r, row in enumerate(matrix) for c, element in enumerate(row) if element == letter)
 
 def preprocessMessage(message):
     message = message.upper().replace("J", "I").replace(" ", "")
@@ -45,48 +34,26 @@ def preprocessMessage(message):
 
     return digraphs
 
-def encryptMessage(message, key):
-    keyMatrix = generateMatrix(key)
-    digraphs = preprocessMessage(message)
-    cipherText = ''
-
-    for d in digraphs:
-        r1, c1 = findIndex(keyMatrix, d[0])
-        r2, c2 = findIndex(keyMatrix, d[1])
+def transform(digraphs, matrix, step):
+    result = []
+    for a, b in digraphs:
+        r1, c1 = findIndex(matrix, a)
+        r2, c2 = findIndex(matrix, b)
 
         if r1 == r2:
-            cipherText += keyMatrix[r1][(c1 + 1) % 5]
-            cipherText += keyMatrix[r2][(c2 + 1) % 5]
+            result.append(matrix[r1][(c1 + step) % 5] + matrix[r2][(c2 + step) % 5])
         elif c1 == c2:
-            cipherText += keyMatrix[(r1 + 1) % 5][c1]
-            cipherText += keyMatrix[(r2 + 1) % 5][c2]
+            result.append(matrix[(r1 + step) % 5][c1] + matrix[(r2 + step) % 5][c2])
         else:
-            cipherText += keyMatrix[r1][c2]
-            cipherText += keyMatrix[r2][c1]
+            result.append(matrix[r1][c2] + matrix[r2][c1])
 
-    return cipherText
+    return ''.join(result)
+
+def encryptMessage(message, key):
+    return transform(preprocessMessage(message), generateMatrix(key), 1)
 
 def decryptMessage(cipherText, key):
-    keyMatrix = generateMatrix(key)
-    plainText = ''
-
-    digraphs = [cipherText[i:i+2] for i in range(0, len(cipherText), 2)]
-
-    for d in digraphs:
-        r1, c1 = findIndex(keyMatrix, d[0])
-        r2, c2 = findIndex(keyMatrix, d[1])
-
-        if r1 == r2:
-            plainText += keyMatrix[r1][(c1 - 1) % 5]
-            plainText += keyMatrix[r2][(c2 - 1) % 5]
-        elif c1 == c2:
-            plainText += keyMatrix[(r1 - 1) % 5][c1]
-            plainText += keyMatrix[(r2 - 1) % 5][c2]
-        else:
-            plainText += keyMatrix[r1][c2]
-            plainText += keyMatrix[r2][c1]
-
-    return plainText
+    return transform([cipherText[i:i+2] for i in range(0, len(cipherText), 2)], generateMatrix(key), -1)
 
 
 key = input("Enter secret key: ")

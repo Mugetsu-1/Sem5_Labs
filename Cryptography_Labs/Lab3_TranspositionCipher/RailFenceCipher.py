@@ -1,64 +1,29 @@
+def _pattern(length, key):
+    if key == 1:
+        return [0] * length
+    row, step, rows = 0, 1, []
+    for _ in range(length):
+        rows.append(row)
+        if row == 0:
+            step = 1
+        elif row == key - 1:
+            step = -1
+        row += step
+    return rows
+
 def encryptRailFence(text, key):
     text = text.replace(" ", "").upper()
-    rail = [['\n' for _ in range(len(text))] for _ in range(key)]
-
-    dir_down = False
-    row, col = 0, 0
-
-    for char in text:
-        if row == 0 or row == key - 1:
-            dir_down = not dir_down
-
-        rail[row][col] = char
-        col += 1
-
-        row += 1 if dir_down else -1
-
-    result = ""
-    for i in range(key):
-        for j in range(len(text)):
-            if rail[i][j] != '\n':
-                result += rail[i][j]
-
-    return result
-
+    rows = _pattern(len(text), key)
+    return ''.join(ch for r in range(key) for i, ch in enumerate(text) if rows[i] == r)
 
 def decryptRailFence(cipher, key):
-    rail = [['\n' for _ in range(len(cipher))] for _ in range(key)]
-
-    dir_down = None
-    row, col = 0, 0
-
-    for i in range(len(cipher)):
-        if row == 0:
-            dir_down = True
-        if row == key - 1:
-            dir_down = False
-
-        rail[row][col] = '*'
-        col += 1
-        row += 1 if dir_down else -1
-
-    index = 0
-    for i in range(key):
-        for j in range(len(cipher)):
-            if rail[i][j] == '*' and index < len(cipher):
-                rail[i][j] = cipher[index]
-                index += 1
-
-    result = ""
-    row, col = 0, 0
-    for i in range(len(cipher)):
-        if row == 0:
-            dir_down = True
-        if row == key - 1:
-            dir_down = False
-
-        result += rail[row][col]
-        col += 1
-        row += 1 if dir_down else -1
-
-    return result
+    rows = _pattern(len(cipher), key)
+    counts = [rows.count(i) for i in range(key)]
+    rails, start = [], 0
+    for count in counts:
+        rails.append(iter(cipher[start:start + count]))
+        start += count
+    return ''.join(next(rails[row]) for row in rows)
 
 
 

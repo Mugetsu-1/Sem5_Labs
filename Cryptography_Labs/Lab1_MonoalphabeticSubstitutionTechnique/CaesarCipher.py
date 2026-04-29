@@ -1,24 +1,21 @@
-def caesar_encrypt(message, key):
-    encrypted = ""
-    for char in message:
+def shift(text, key):
+    result = []
+    for char in text:
         if char.isupper():
-            encrypted += chr((ord(char) - 65 + key) % 26 + 65)
+            base = 65
         elif char.islower():
-            encrypted += chr((ord(char) - 97 + key) % 26 + 97)
+            base = 97
         else:
-            encrypted += char
-    return encrypted
+            result.append(char)
+            continue
+        result.append(chr((ord(char) - base + key) % 26 + base))
+    return ''.join(result)
+
+def caesar_encrypt(message, key):
+    return shift(message, key)
 
 def caesar_decrypt(encrypted_message, key):
-    decrypted = ""
-    for char in encrypted_message:
-        if char.isupper():
-            decrypted += chr((ord(char) - 65 - key) % 26 + 65)
-        elif char.islower():
-            decrypted += chr((ord(char) - 97 - key) % 26 + 97)
-        else:
-            decrypted += char
-    return decrypted
+    return shift(encrypted_message, -key)
 
 
 message = "Saugat Bikram Thapa"

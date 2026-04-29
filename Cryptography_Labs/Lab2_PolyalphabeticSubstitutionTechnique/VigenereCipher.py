@@ -1,64 +1,25 @@
-import numpy as np
 import string
 
-
-lowerCase = list(string.ascii_lowercase)
-upperCase = list(string.ascii_uppercase)
-
 def extend_key(key, length):
-    """Extend key to match the required length."""
-    repeats = int(np.ceil(length / len(key)))
-    return (key * repeats)[:length]
+    return (key * ((length + len(key) - 1) // len(key)))[:length]
+
+def transform(text, key, step):
+    key = extend_key(key.lower(), len(text))
+    result = []
+    for i, letter in enumerate(text):
+        if letter in string.ascii_lowercase:
+            result.append(chr((ord(letter) - 97 + step * (ord(key[i]) - 97)) % 26 + 97))
+        elif letter in string.ascii_uppercase:
+            result.append(chr((ord(letter) - 65 + step * (ord(key[i]) - 97)) % 26 + 65))
+        else:
+            result.append(letter)
+    return ''.join(result)
 
 def encryptmessage(plainText, key):
-    cipherText = ''
-    key = extend_key(key, len(plainText))
-    count = 0
-    
-    for letter in plainText:
-        if letter in lowerCase:
-            index = lowerCase.index(letter)
-            shifter = lowerCase.index(key[count])
-            shiftedIndex = (index + shifter) % 26
-            cipherText += lowerCase[shiftedIndex]
-            count += 1
-
-        elif letter in upperCase:
-            index = upperCase.index(letter)
-            shifter = lowerCase.index(key[count])
-            shiftedIndex = (index + shifter) % 26
-            cipherText += upperCase[shiftedIndex]
-            count += 1
-
-        else:
-            cipherText += letter
-            count += 1
-    return cipherText
+    return transform(plainText, key, 1)
 
 def decryptmessage(cipherText, key):
-    plainText = ''
-    key = extend_key(key, len(cipherText))
-    count = 0
-    
-    for letter in cipherText:
-        if letter in lowerCase:
-            index = lowerCase.index(letter)
-            shifter = lowerCase.index(key[count])
-            shiftedIndex = (index - shifter) % 26
-            plainText += lowerCase[shiftedIndex]
-            count += 1
-
-        elif letter in upperCase:
-            index = upperCase.index(letter)
-            shifter = lowerCase.index(key[count])
-            shiftedIndex = (index - shifter) % 26
-            plainText += upperCase[shiftedIndex]
-            count += 1
-
-        else:
-            plainText += letter
-            count += 1
-    return plainText
+    return transform(cipherText, key, -1)
 
 
 message = input('Enter your Message: ')
