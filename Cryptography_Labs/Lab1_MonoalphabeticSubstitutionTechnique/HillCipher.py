@@ -79,6 +79,7 @@ if __name__ == "__main__":
     for key, plaintext in examples:
         cipher = HillCipher(key)
         encrypted = cipher.encrypt(plaintext)
+        print(f"{cipher.n}x{cipher.n} Hill Cipher")
         print("Key Matrix:", key)
         print("Plaintext :", plaintext)
         print("Ciphertext:", encrypted)
