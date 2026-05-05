@@ -1,124 +1,86 @@
 from math import gcd
 
-class HillCipher:
-    def __init__(self, key_matrix):
-        self.key_matrix = [list(map(int, row)) for row in key_matrix]
-        self.n = len(self.key_matrix)
 
-        if any(len(row) != self.n for row in self.key_matrix):
+class HillCipher:
+    MOD = 26
+
+    def __init__(self, key_matrix):
+        self.key = [list(map(int, row)) for row in key_matrix]
+        self.n = len(self.key)
+        if not self.key or any(len(row) != self.n for row in self.key):
             raise ValueError("Key matrix must be square")
-        if gcd(self.det(self.key_matrix) % 26, 26) != 1:
+        if gcd(self._det(self.key) % self.MOD, self.MOD) != 1:
             raise ValueError("Key matrix is not invertible mod 26")
 
-    @staticmethod
-    def det(matrix):
+    def _det(self, matrix):
         if len(matrix) == 1:
             return matrix[0][0]
         if len(matrix) == 2:
             return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
-        return sum(
-            (-1) ** c * matrix[0][c] * HillCipher.det([row[:c] + row[c + 1:] for row in matrix[1:]])
-            for c in range(len(matrix))
-        )
+        total = 0
+        for c, value in enumerate(matrix[0]):
+            minor = [row[:c] + row[c + 1 :] for row in matrix[1:]]
+            total += ((-1) ** c) * value * self._det(minor)
+        return total
 
-    @staticmethod
-    def mod_inverse(a, m):
-        return next((x for x in range(1, m) if (a * x) % m == 1), None)
-
-    def minor(self, matrix, row, col):
-        return [r[:col] + r[col + 1:] for i, r in enumerate(matrix) if i != row]
-
-    def matrix_mod_inv(self, matrix, modulus):
-        det = self.det(matrix)
-        det_inv = self.mod_inverse(det % modulus, modulus)
-        if det_inv is None:
-            raise ValueError("Key matrix is not invertible mod 26")
-
+    def _inverse_key(self):
+        det_inv = pow(self._det(self.key) % self.MOD, -1, self.MOD)
         cofactors = [
-            [((-1) ** (r + c) * self.det(self.minor(matrix, r, c))) for c in range(self.n)]
+            [
+                ((-1) ** (r + c))
+                * self._det([row[:c] + row[c + 1 :] for i, row in enumerate(self.key) if i != r])
+                for c in range(self.n)
+            ]
             for r in range(self.n)
         ]
-        adjugate = [list(row) for row in zip(*cofactors)]
-        return [[(det_inv * value) % modulus for value in row] for row in adjugate]
+        adjugate = zip(*cofactors)
+        return [[(det_inv * value) % self.MOD for value in row] for row in adjugate]
 
-    def prepare_text(self, text):
-        return ''.join(c for c in text.upper() if c.isalpha())
+    @staticmethod
+    def _clean(text):
+        return "".join(ch for ch in text.upper() if ch.isalpha())
 
-    def text_to_vector(self, text):
-        return [ord(c) - 65 for c in text]
+    @staticmethod
+    def _to_vector(block):
+        return [ord(ch) - 65 for ch in block]
 
-    def vector_to_text(self, vector):
-        return ''.join(chr(int(v) % 26 + 65) for v in vector)
+    @staticmethod
+    def _to_text(vector):
+        return "".join(chr(value % 26 + 65) for value in vector)
 
-    def multiply(self, matrix, vector, modulus):
-        return [sum(matrix[r][c] * vector[c] for c in range(self.n)) % modulus for r in range(self.n)]
+    def _multiply(self, matrix, vector):
+        return [sum(matrix[r][c] * vector[c] for c in range(self.n)) % self.MOD for r in range(self.n)]
 
-    def encrypt(self, plaintext, show_steps=False):
-        plaintext = self.prepare_text(plaintext)
+    def _transform(self, text, matrix, pad=False):
+        text = self._clean(text)
+        if pad:
+            text += "X" * (-len(text) % self.n)
+        elif len(text) % self.n:
+            raise ValueError("Ciphertext length must be a multiple of key size")
 
-        while len(plaintext) % self.n != 0:
-            plaintext += 'X'
+        return "".join(
+            self._to_text(self._multiply(matrix, self._to_vector(text[i : i + self.n])))
+            for i in range(0, len(text), self.n)
+        )
 
-        if show_steps:
-            print("\nKey Matrix:")
-            print(self.key_matrix)
-
-        ciphertext = []
-        for i in range(0, len(plaintext), self.n):
-            block = plaintext[i:i + self.n]
-            vector = self.text_to_vector(block)
-            encrypted_vector = self.multiply(self.key_matrix, vector, 26)
-
-            if show_steps:
-                print("\nPlaintext block:", block)
-                print("Plaintext vector:", vector)
-                print("Encrypted vector:", encrypted_vector)
-
-            ciphertext.append(self.vector_to_text(encrypted_vector))
-
-        return ''.join(ciphertext)
+    def encrypt(self, plaintext):
+        return self._transform(plaintext, self.key, pad=True)
 
     def decrypt(self, ciphertext):
-        ciphertext = self.prepare_text(ciphertext)
-        key_inv = self.matrix_mod_inv(self.key_matrix, 26)
-
-        plaintext = []
-        for i in range(0, len(ciphertext), self.n):
-            block = ciphertext[i:i + self.n]
-            vector = self.text_to_vector(block)
-            decrypted_vector = self.multiply(key_inv, vector, 26)
-            plaintext.append(self.vector_to_text(decrypted_vector))
-
-        return ''.join(plaintext)
+        return self._transform(ciphertext, self._inverse_key())
 
 
 if __name__ == "__main__":
+    examples = [
+        ([[3, 3], [2, 5]], "EllOOo"),
+        ([[6, 24, 1], [13, 16, 10], [20, 17, 15]], "ACHS"),
+    ]
 
-    print("2 x 2 Hill Cipher")
-
-    key_2x2 = [[3, 3],
-               [2, 5]]
-
-    cipher_2x2 = HillCipher(key_2x2)
-
-    plaintext1 = "EllOOo"
-    encrypted1 = cipher_2x2.encrypt(plaintext1, show_steps=True)
-    decrypted1 = cipher_2x2.decrypt(encrypted1)
-
-    print("\nCiphertext:", encrypted1)
-    print("Decrypted :", decrypted1)
-
-    print("\n3 x 3 Hill Cipher")
-
-    key_3x3 = [[6, 24, 1],
-               [13, 16, 10],
-               [20, 17, 15]]
-
-    cipher_3x3 = HillCipher(key_3x3)
-
-    plaintext2 = "ACHS"
-    encrypted2 = cipher_3x3.encrypt(plaintext2, show_steps=True)
-    decrypted2 = cipher_3x3.decrypt(encrypted2)
-
-    print("\nCiphertext:", encrypted2)
-    print("Decrypted :", decrypted2)
+    for key, plaintext in examples:
+        cipher = HillCipher(key)
+        encrypted = cipher.encrypt(plaintext)
+        print("Key Matrix:", key)
+        print("Plaintext :", plaintext)
+        print("Ciphertext:", encrypted)
+        print("Decrypted :", cipher.decrypt(encrypted))
+        print()
