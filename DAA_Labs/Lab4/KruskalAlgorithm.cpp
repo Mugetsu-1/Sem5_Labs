@@ -2,7 +2,7 @@
 #include <algorithm>
 using namespace std;
 
-long long steps = 0;
+long steps = 0;
 
 struct Edge {
     int u, v, w;

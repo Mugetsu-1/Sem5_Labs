@@ -4,7 +4,8 @@
 using namespace std;
 
 int main() {
-    vector<double> data = {0.54, 0.73, 0.98, 0.11, 0.68};
+    double values[] = {0.54, 0.73, 0.98, 0.11, 0.68};
+    vector<double> data(values, values + sizeof(values) / sizeof(values[0]));
     size_t N = data.size();
     double D = 0.0;
 

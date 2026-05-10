@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-long long steps = 0;
+long steps = 0;
 
 int max(int a, int b) {
     steps++;

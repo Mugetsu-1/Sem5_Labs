@@ -4,7 +4,7 @@
 
 using namespace std;
 
-vector<double> multiply(const vector<double>& state, const vector<vector<double>>& p) {
+vector<double> multiply(const vector<double>& state, const vector<vector<double> >& p) {
     int n = (int)state.size();
     vector<double> next(n, 0.0);
 
@@ -22,7 +22,7 @@ int main() {
     cout << "Enter number of states: ";
     cin >> n;
 
-    vector<vector<double>> p(n, vector<double>(n));
+    vector<vector<double> > p(n, vector<double>(n));
     cout << "Enter transition matrix (" << n << "x" << n << "):\n";
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {

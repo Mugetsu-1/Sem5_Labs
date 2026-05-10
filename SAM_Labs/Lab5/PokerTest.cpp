@@ -18,7 +18,8 @@ int main() {
 
     int allSame = 0, onePair = 0, allDiff = 0;
 
-    for (int num : groups) {
+    for (int i = 0; i < n; i++) {
+        int num = groups[i];
         int a = num / 100;
         int b = (num / 10) % 10;
         int c = num % 10;

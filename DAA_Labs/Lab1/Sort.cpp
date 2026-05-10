@@ -73,7 +73,13 @@ void minMax(int a[], int n) {
     cout << "Min: " << mn << "  Max: " << mx << endl;
 }
 Node* insert(Node* r, int v) {
-    if(!r) return new Node{v, NULL, NULL};
+    if(!r) {
+        Node* node = new Node;
+        node->data = v;
+        node->left = NULL;
+        node->right = NULL;
+        return node;
+    }
     if(v < r->data) r->left = insert(r->left, v);
     else r->right = insert(r->right, v);
     return r;

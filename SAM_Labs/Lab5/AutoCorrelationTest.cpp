@@ -24,8 +24,8 @@ int main() {
     }
 
     double mean = 0.0;
-    for (double v : x) {
-        mean += v;
+    for (int i = 0; i < n; i++) {
+        mean += x[i];
     }
     mean /= n;
 

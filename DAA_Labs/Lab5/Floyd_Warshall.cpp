@@ -2,7 +2,7 @@
 #include <climits>
 using namespace std;
 
-long long steps = 0;
+long steps = 0;
 #define INF 1000000000
 
 void floydWarshall(int graph[100][100], int V) {

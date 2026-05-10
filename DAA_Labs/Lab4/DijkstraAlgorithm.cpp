@@ -2,7 +2,7 @@
 #include <climits>
 using namespace std;
 
-long long steps = 0;
+long steps = 0;
 
 int minDistance(int dist[], bool visited[], int V) {
     int min = INT_MAX, minIndex = -1;

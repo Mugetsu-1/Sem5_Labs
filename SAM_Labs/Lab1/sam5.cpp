@@ -15,8 +15,8 @@ public:
     }
 
     // Function to calculate factorial
-    long long factorial(int x) {
-        long long fact = 1;
+    long factorial(int x) {
+        long fact = 1;
         for (int i = 1; i <= x; i++) {
             fact *= i;
         }
@@ -25,7 +25,7 @@ public:
 
     // Function to calculate probability P(X = k)
     double probability(int k) {
-        long long nCk = factorial(n) / (factorial(k) * factorial(n - k));
+        long nCk = factorial(n) / (factorial(k) * factorial(n - k));
         return nCk * pow(p, k) * pow(1 - p, n - k);
     }
 };

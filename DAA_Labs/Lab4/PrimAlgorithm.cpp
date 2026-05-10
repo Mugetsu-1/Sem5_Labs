@@ -2,7 +2,7 @@
 #include <climits>
 using namespace std;
 
-long long steps = 0;
+long steps = 0;
 
 int minKey(int key[], bool mstSet[], int V) {
     int min = INT_MAX, minIndex = -1;
