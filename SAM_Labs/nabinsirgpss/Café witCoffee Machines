@@ -1,0 +1,9 @@
+coffee_machines STORAGE 2
+GENERATE 5,2
+QUEUE customer_queue
+ENTER coffee_machines
+DEPART customer_queue
+ADVANCE 3,1
+LEAVE coffee_machines
+TERMINATE 1
+START 100
